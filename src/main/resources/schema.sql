@@ -1,8 +1,3 @@
-CREATE TABLE IF NOT EXISTS public.destinations(
-    id serial primary key,
-    country varchar(255)
-);
-
 CREATE TABLE IF NOT EXISTS public.guides(
     id serial primary key,
     first_name varchar(255),
@@ -12,9 +7,9 @@ CREATE TABLE IF NOT EXISTS public.guides(
 CREATE TABLE IF NOT EXISTS public.tours(
     id serial primary key,
     departure_point varchar(255),
-    destination_id integer constraint fk_tour_destination references public.destinations,
-    departure_date timestamp,
-    return_date timestamp,
+    destination varchar(255),
+    departure_date date,
+    return_date date,
     initial_price decimal(8,2),
     guide_id integer constraint fk_tour_guide references public.guides
 );

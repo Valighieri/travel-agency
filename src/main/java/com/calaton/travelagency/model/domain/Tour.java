@@ -1,6 +1,5 @@
 package com.calaton.travelagency.model.domain;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "tours")
@@ -33,15 +32,14 @@ public class Tour {
     @Column(name = "departure_point")
     private String departurePoint;
 
-    @ManyToOne
-    @JoinColumn(name = "destination_id", referencedColumnName = "id")
-    private Destination destination;
+    @Column(name = "destination")
+    private String destination;
 
     @Column(name = "departure_date")
-    private LocalDateTime departureDate;
+    private LocalDate departureDate;
 
     @Column(name = "return_date")
-    private LocalDateTime returnDate;
+    private LocalDate returnDate;
 
     @Column(name = "initial_price")
     private BigDecimal initialPrice;
