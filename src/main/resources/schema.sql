@@ -1,0 +1,34 @@
+CREATE TABLE IF NOT EXISTS public.destinations(
+    id serial primary key,
+    country varchar(255)
+);
+
+CREATE TABLE IF NOT EXISTS public.guides(
+    id serial primary key,
+    first_name varchar(255),
+    last_name varchar(255)
+);
+
+CREATE TABLE IF NOT EXISTS public.tours(
+    id serial primary key,
+    departure_point varchar(255),
+    destination_id integer constraint fk_tour_destination references public.destinations,
+    departure_date timestamp,
+    return_date timestamp,
+    initial_price decimal(8,2),
+    guide_id integer constraint fk_tour_guide references public.guides
+);
+
+CREATE TABLE IF NOT EXISTS public.clients(
+    id serial primary key,
+    first_name varchar(255),
+    last_name varchar(255),
+    passport_number varchar(255)
+);
+
+CREATE TABLE IF NOT EXISTS public.orders(
+    id serial primary key,
+    client_id integer references public.clients,
+    tour_id integer references public.tours,
+    discount decimal(5,2) -- for example 15.00 %
+);
