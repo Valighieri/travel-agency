@@ -1,5 +1,6 @@
 package com.calaton.travelagency.model.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,7 +45,7 @@ public class Tour {
     @Column(name = "initial_price")
     private BigDecimal initialPrice;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "guide_id", referencedColumnName = "id")
     private Guide guide;
 }
