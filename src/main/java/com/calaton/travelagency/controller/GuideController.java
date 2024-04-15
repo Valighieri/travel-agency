@@ -1,6 +1,6 @@
 package com.calaton.travelagency.controller;
 
-import com.calaton.travelagency.model.domain.Guide;
+import com.calaton.travelagency.model.dto.GuideDto;
 import com.calaton.travelagency.service.GuideService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,13 +21,13 @@ public class GuideController {
 
     @GetMapping("/find/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Guide getGuideById(@PathVariable Integer id) {
+    public GuideDto getGuideById(@PathVariable Integer id) {
         return guideService.getGuideById(id);
     }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.OK)
-    public Guide setGuide(@RequestBody Guide guide){
-        return guideService.setGuide(guide);
+    public GuideDto setGuide(@RequestBody GuideDto guideDto){
+        return guideService.setGuide(guideDto);
     }
 }

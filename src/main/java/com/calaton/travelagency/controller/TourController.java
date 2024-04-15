@@ -1,6 +1,6 @@
 package com.calaton.travelagency.controller;
 
-import com.calaton.travelagency.model.domain.Tour;
+import com.calaton.travelagency.model.dto.TourDto;
 import com.calaton.travelagency.service.TourService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,15 +21,13 @@ public class TourController {
 
     @GetMapping("/find/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Tour getTourById(@PathVariable Integer id){
+    public TourDto getTourById(@PathVariable Integer id){
         return tourService.getTourById(id);
     }
 
-    //TODO: Problem with saving embedded entity (Guide),
-    // something with transactions ?
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.OK)
-    public Tour setTour(@RequestBody Tour tour){
-        return tourService.setTour(tour);
+    public TourDto setTour(@RequestBody TourDto tourDto){
+        return tourService.setTour(tourDto);
     }
 }

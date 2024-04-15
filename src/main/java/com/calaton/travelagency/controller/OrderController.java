@@ -1,6 +1,6 @@
 package com.calaton.travelagency.controller;
 
-import com.calaton.travelagency.model.domain.Order;
+import com.calaton.travelagency.model.dto.OrderDto;
 import com.calaton.travelagency.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,13 +21,13 @@ public class OrderController {
 
     @GetMapping("/find/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Order getOrderById(@PathVariable Integer id) {
+    public OrderDto getOrderById(@PathVariable Integer id) {
         return orderService.getOrderById(id);
     }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.OK)
-    public Order setOrder(@RequestBody Order order){
-        return orderService.setOrder(order);
+    public OrderDto setOrder(@RequestBody OrderDto orderDto){
+        return orderService.setOrder(orderDto);
     }
 }
