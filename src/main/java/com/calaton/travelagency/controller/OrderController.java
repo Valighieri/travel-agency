@@ -19,13 +19,13 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public OrderDto getOrderById(@PathVariable Integer id) {
         return orderService.getOrderById(id);
     }
 
-    @PostMapping("/save")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.OK)
     public OrderDto setOrder(@RequestBody OrderDto orderDto){
         return orderService.setOrder(orderDto);

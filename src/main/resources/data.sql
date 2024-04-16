@@ -20,7 +20,7 @@ insert into tours(departure_point, destination, departure_date, return_date,
 values ('Washington', 'USA', '2024-03-22', '2024-03-29', 600, 2);
 insert into tours(departure_point, destination, departure_date, return_date,
                   initial_price, guide_id)
-values ('Italy', 'Rome', '2024-04-01', '2024-04-05', 800, 3);
+values ('Rome', 'Italy', '2024-04-01', '2024-04-05', 800, 3);
 
 insert into orders(client_id, tour_id, discount)
 values (1, 1, 10.5);

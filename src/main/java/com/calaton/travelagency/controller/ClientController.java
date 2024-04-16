@@ -19,13 +19,13 @@ public class ClientController {
 
     private final ClientService clientService;
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ClientDto getClientById(@PathVariable Integer id) {
         return clientService.getClientById(id);
     }
 
-    @PostMapping("/save")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.OK)
     public ClientDto setClient(@RequestBody ClientDto clientDto) {
         return clientService.setClient(clientDto);
