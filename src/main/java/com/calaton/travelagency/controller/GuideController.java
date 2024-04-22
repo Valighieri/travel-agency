@@ -21,13 +21,14 @@ public class GuideController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public GuideDto getGuideById(@PathVariable Integer id) {
+    public GuideDto getGuideById(@PathVariable Long id) {
         return guideService.getGuideById(id);
     }
 
     @PostMapping("")
-    @ResponseStatus(HttpStatus.OK)
-    public GuideDto setGuide(@RequestBody GuideDto guideDto){
-        return guideService.setGuide(guideDto);
+    @ResponseStatus(HttpStatus.CREATED)
+    public GuideDto saveGuide(@RequestBody GuideDto guideDto){
+        return guideService.saveGuide(guideDto);
     }
+
 }

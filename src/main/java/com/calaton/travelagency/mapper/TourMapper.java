@@ -7,7 +7,8 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface TourMapper {
 
-    TourDto toTourDto(Tour tour);
+    TourDto toDto(Tour tour);
 
-    Tour toTour(TourDto tourDto);
+    Tour toEntity(TourDto tourDto);
+
 }

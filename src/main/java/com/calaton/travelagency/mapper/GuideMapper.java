@@ -7,7 +7,8 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface GuideMapper {
 
-    GuideDto toGuideDto(Guide guide);
+    GuideDto toDto(Guide guide);
 
-    Guide toGuide(GuideDto guideDto);
+    Guide toEntity(GuideDto guideDto);
+
 }

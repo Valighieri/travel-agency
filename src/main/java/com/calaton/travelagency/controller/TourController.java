@@ -21,13 +21,14 @@ public class TourController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TourDto getTourById(@PathVariable Integer id){
+    public TourDto getTourById(@PathVariable Long id){
         return tourService.getTourById(id);
     }
 
     @PostMapping("")
-    @ResponseStatus(HttpStatus.OK)
-    public TourDto setTour(@RequestBody TourDto tourDto){
-        return tourService.setTour(tourDto);
+    @ResponseStatus(HttpStatus.CREATED)
+    public TourDto saveTour(@RequestBody TourDto tourDto){
+        return tourService.saveTour(tourDto);
     }
+
 }

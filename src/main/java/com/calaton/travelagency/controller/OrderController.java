@@ -21,13 +21,14 @@ public class OrderController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public OrderDto getOrderById(@PathVariable Integer id) {
+    public OrderDto getOrderById(@PathVariable Long id) {
         return orderService.getOrderById(id);
     }
 
     @PostMapping("")
-    @ResponseStatus(HttpStatus.OK)
-    public OrderDto setOrder(@RequestBody OrderDto orderDto){
-        return orderService.setOrder(orderDto);
+    @ResponseStatus(HttpStatus.CREATED)
+    public OrderDto saveOrder(@RequestBody OrderDto orderDto) {
+        return orderService.saveOrder(orderDto);
     }
+
 }

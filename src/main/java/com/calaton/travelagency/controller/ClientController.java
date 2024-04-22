@@ -21,14 +21,14 @@ public class ClientController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ClientDto getClientById(@PathVariable Integer id) {
+    public ClientDto getClientById(@PathVariable Long id) {
         return clientService.getClientById(id);
     }
 
     @PostMapping("")
-    @ResponseStatus(HttpStatus.OK)
-    public ClientDto setClient(@RequestBody ClientDto clientDto) {
-        return clientService.setClient(clientDto);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ClientDto saveClient(@RequestBody ClientDto clientDto) { // rename create
+        return clientService.saveClient(clientDto);
     }
 
 }

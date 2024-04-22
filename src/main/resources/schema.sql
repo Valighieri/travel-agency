@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS public.tours(
     return_date date,
     initial_price decimal(8,2),
     guide_id integer constraint fk_tour_guide references public.guides
+--         on delete ... (for cascade operation)
 );
 
 CREATE TABLE IF NOT EXISTS public.clients(
