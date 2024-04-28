@@ -7,10 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TravelAgencyApplication {
 
     //TODO:
-    // requirements:
-    // - clients can't book 2 tours at the same time
-    // - guides can't guide 2 tours at the same time
-    // .
     // final edits:
     // - add validation
     // - add Spring Security (basic auth)

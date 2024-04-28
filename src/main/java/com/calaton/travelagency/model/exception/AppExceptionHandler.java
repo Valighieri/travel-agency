@@ -26,6 +26,13 @@ public class AppExceptionHandler {
         return ResponseEntity.badRequest().body(errorDto);
     }
 
+    @ExceptionHandler(DateConflictException.class)
+    public ResponseEntity<ErrorDto> handleException(DateConflictException e) {
+        log.error("Error: {}", e.getMessage(), e);
+        ErrorDto errorDto = new ErrorDto(Instant.now().getEpochSecond(), e.getMessage());
+        return ResponseEntity.badRequest().body(errorDto);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDto> handleException(Exception e) {
         log.error("Error: {}", e.getMessage(), e);
