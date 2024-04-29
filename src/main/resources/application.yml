@@ -1,10 +1,11 @@
 spring:
   application:
-    name: travel-agency
+    name: travel-service
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/test_travel_agency
+#    url: jdbc:postgresql://localhost:5432/test_travel_agency
+    url: jdbc:postgresql://db:5432/test_travel_agency
     username: postgres
     password: postgres
 
