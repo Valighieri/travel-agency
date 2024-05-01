@@ -44,11 +44,13 @@ public class ClientService {
         if (clientId == null || tourId == null) {
             throw new InvalidDataException("Client id and tour id must not be null");
         }
+
         Client client = clientRepository.findById(clientId).orElseThrow(
                 () -> new ResourceNotFoundException("Client not found with id = " + clientId));
         Tour tour = tourRepository.findById(tourId).orElseThrow(
                 () -> new ResourceNotFoundException("Tour not found with id = " + tourId));
         checkIfTheTourPeriodIsAvailable(clientId, tour);
+
         client.getTours().add(tour);
         client.getDiscounts().put(tourId, discount);
         client = clientRepository.save(client);
