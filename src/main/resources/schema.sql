@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS public.tours(
     departure_date date,
     return_date date,
     initial_price decimal(8,2),
-    guide_id integer constraint fk_tour_guide references public.guides
+    guide_id integer references public.guides
 --         on delete ... (for cascade operation)
 );
 
@@ -22,9 +22,7 @@ CREATE TABLE IF NOT EXISTS public.clients(
     passport_number varchar(255)
 );
 
-CREATE TABLE IF NOT EXISTS public.orders(
-    id serial primary key,
+CREATE TABLE IF NOT EXISTS public.clients_tours(
     client_id integer references public.clients,
-    tour_id integer references public.tours,
-    discount decimal(5,2) -- for example 15.00 %
+    tour_id integer references public.tours
 );
