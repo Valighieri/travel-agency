@@ -22,16 +22,16 @@ insert into tours (departure_point, destination, departure_date, return_date, in
 values ('Rome', 'Italy', '2024-08-01', '2024-08-05', 800, 3);
 
 
-insert into orders(client_id, tour_id, discount)
-values (1, 1, 10.5);
+insert into clients_tours(client_id, tour_id)
+values (1, 1);
 
-insert into orders(client_id, tour_id, discount)
-values (1, 2, 12);
-insert into orders(client_id, tour_id, discount)
-values (2, 2, 12);
-insert into orders(client_id, tour_id, discount)
-values (3, 2, 12);
+insert into clients_tours(client_id, tour_id)
+values (1, 2);
+insert into clients_tours(client_id, tour_id)
+values (2, 2);
+insert into clients_tours(client_id, tour_id)
+values (3, 2);
 
-insert into orders(client_id, tour_id, discount)
-values (3, 3, 12);
+insert into clients_tours(client_id, tour_id)
+values (3, 3);
 
