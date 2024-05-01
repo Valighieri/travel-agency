@@ -5,6 +5,7 @@ import com.calaton.travelagency.model.domain.Client;
 import com.calaton.travelagency.model.domain.Order;
 import com.calaton.travelagency.model.domain.Tour;
 import com.calaton.travelagency.model.dto.OrderDto;
+import com.calaton.travelagency.model.dto.projections.SumAndAvgPriceDto;
 import com.calaton.travelagency.model.exception.DateConflictException;
 import com.calaton.travelagency.model.exception.InvalidDataException;
 import com.calaton.travelagency.model.exception.ResourceNotFoundException;
@@ -65,9 +66,5 @@ public class OrderService {
         order = orderRepository.save(order);
         return orderMapper.toDto(order);
     }
-
-//    public List<Object[]> getTheMostPopularDestination(Integer year) {
-//        return orderRepository.findTheMostPopularDestination(year, Limit.of(1));
-//    }
 
 }

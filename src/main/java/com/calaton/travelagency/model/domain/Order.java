@@ -19,6 +19,8 @@ import java.math.BigDecimal;
 @Setter
 public class Order {
 
+    //TODO change this to many-to-many relationship
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

@@ -2,6 +2,7 @@ package com.calaton.travelagency.repository;
 
 import com.calaton.travelagency.model.domain.Order;
 import com.calaton.travelagency.model.domain.Tour;
+import com.calaton.travelagency.model.dto.projections.SumAndAvgPriceDto;
 import com.calaton.travelagency.model.dto.projections.TourPopularityDto;
 import org.springframework.data.domain.Limit;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,12 +26,14 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Object[]> findClientsWithoutOrders(Integer year);
 
     // Task: "The average price and total amount for which a tour was sold"
-    @Query(value = "select o.tour.id, sum(o.tour.initialPrice - o.tour.initialPrice / 100 * o.discount)," +
-            "avg(o.tour.initialPrice - o.tour.initialPrice / 100 * o.discount) from Order o group by o.tour.id")
-    List<Object[]> findToursAvgPriceAndTotalAmount();
+    @Query(value = "select new com.calaton.travelagency.model.dto.projections.SumAndAvgPriceDto(" +
+            " o.tour.id, sum(o.tour.initialPrice - o.tour.initialPrice / 100 * o.discount)," +
+            "avg(o.tour.initialPrice - o.tour.initialPrice / 100 * o.discount)) from Order o group by o.tour.id")
+    List<SumAndAvgPriceDto> findToursAvgPriceAndTotalAmount();
 
     // Task: "The most popular trip (top 3) with the lowest selling price"
     // without "limit 1"
+    // TODO: add o.tour.initialPrice for filtering in service by that
     @Query(value = "select new com.calaton.travelagency.model.dto.projections.TourPopularityDto(" +
             "o.tour.id, count(o.tour.id)) from Order o group by o.tour.id")
     List<TourPopularityDto> findToursPopularity();
