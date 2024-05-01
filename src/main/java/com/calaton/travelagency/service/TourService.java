@@ -25,7 +25,6 @@ public class TourService {
 
     private final TourMapper tourMapper;
 
-
     public TourDto getTourById(Long id) {
         Tour tour = tourRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Tour not found with id = " + id));
@@ -33,21 +32,22 @@ public class TourService {
         return tourMapper.toDto(tour);
     }
 
-    // TODO: - change dto structure;
-    //  (we don't need attached entity in dto, we don't use cascade operations)
-    //  (for now: using attached entity from dto for getting this entity id)
-
     public TourDto saveTour(TourDto tourDto) {
         Tour tour = tourMapper.toEntity(tourDto);
         Long guideId = tour.getGuide().getId();
         if (guideId == null) {
             throw new InvalidDataException("Guide id must not be null");
         }
-
         Guide guide = guideRepository.findById(guideId).orElseThrow(
                 () -> new ResourceNotFoundException("Guide not found with id = " + guideId));
+        checkIfTheTourPeriodIsAvailable(guideId, tour);
+        tour.setGuide(guide);
+        tour = tourRepository.save(tour);
+        return tourMapper.toDto(tour);
+    }
 
-        // Guides can't guide 2 tours at the same time
+    // Guides can't guide 2 tours at the same time
+    private void checkIfTheTourPeriodIsAvailable(Long guideId, Tour tour) {
         List<Tour> guideActualTours = tourRepository.findGuideActualTours(guideId);
         for (Tour actualTour : guideActualTours) {
             boolean tourCompletelyBefore = tour.getReturnDate().isBefore(actualTour.getDepartureDate());
@@ -56,11 +56,6 @@ public class TourService {
                 throw new DateConflictException("Guide has conflict by date with another tour");
             }
         }
-
-        tour.setGuide(guide);
-
-        tour = tourRepository.save(tour);
-        return tourMapper.toDto(tour);
     }
 
 }
