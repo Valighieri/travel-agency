@@ -1,5 +1,7 @@
 package com.calaton.travelagency.controller;
 
+import com.calaton.travelagency.model.domain.Client;
+import com.calaton.travelagency.model.dto.BookingTourDto;
 import com.calaton.travelagency.model.dto.ClientDto;
 import com.calaton.travelagency.service.ClientService;
 import lombok.AllArgsConstructor;
@@ -29,6 +31,12 @@ public class ClientController {
     @ResponseStatus(HttpStatus.CREATED)
     public ClientDto saveClient(@RequestBody ClientDto clientDto) { // rename create
         return clientService.saveClient(clientDto);
+    }
+
+    @PostMapping("/booking")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ClientDto bookTour(@RequestBody BookingTourDto bookingTourDto) {
+        return clientService.bookTour(bookingTourDto);
     }
 
 }

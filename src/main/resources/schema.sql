@@ -26,3 +26,9 @@ CREATE TABLE IF NOT EXISTS public.clients_tours(
     client_id integer references public.clients,
     tour_id integer references public.tours
 );
+
+CREATE TABLE IF NOT EXISTS public.discounts(
+    client_id integer references public.clients,
+    tour_id integer references public.tours,
+    discount decimal(5,2)
+);

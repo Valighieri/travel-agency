@@ -35,3 +35,16 @@ values (3, 2);
 insert into clients_tours(client_id, tour_id)
 values (3, 3);
 
+
+insert into discounts(client_id, tour_id, discount)
+values (1, 1, 10.2);
+
+insert into discounts(client_id, tour_id, discount)
+values (1, 2, 12);
+insert into discounts(client_id, tour_id, discount)
+values (2, 2, 12);
+insert into discounts(client_id, tour_id, discount)
+values (3, 2, 12);
+
+insert into discounts(client_id, tour_id, discount)
+values (3, 3, 13.4);
