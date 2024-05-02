@@ -31,4 +31,10 @@ public class GuideController {
         return guideService.saveGuide(guideDto);
     }
 
+    @GetMapping("/revenue/{year}")
+    @ResponseStatus(HttpStatus.OK)
+    public GuideDto getGuideWithTheHighestRevenue(@PathVariable Integer year) {
+        return guideService.getGuideWithTheHighestRevenue(year);
+    }
+
 }

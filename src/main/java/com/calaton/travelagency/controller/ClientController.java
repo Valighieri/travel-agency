@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/clients")
 @AllArgsConstructor
@@ -36,6 +38,24 @@ public class ClientController {
     @ResponseStatus(HttpStatus.CREATED)
     public ClientDto bookTour(@RequestBody BookingTourDto bookingTourDto) {
         return clientService.bookTour(bookingTourDto);
+    }
+
+    @GetMapping("/without-orders/{year}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ClientDto> getClientsWithoutOrders(@PathVariable Integer year) {
+        return clientService.getClientsWithoutOrders(year);
+    }
+
+    @GetMapping("/highest/discount")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ClientDto> getClientsWithTheHighestDiscount() {
+        return clientService.getClientsWithTheHighestDiscount();
+    }
+
+    @GetMapping("/highest/revenue")
+    @ResponseStatus(HttpStatus.OK)
+    public ClientDto getClientWithTheHighestRevenueOverall() {
+        return clientService.getClientWithTheHighestRevenueOverall();
     }
 
 }

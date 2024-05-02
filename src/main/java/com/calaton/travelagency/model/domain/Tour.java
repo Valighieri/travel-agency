@@ -1,6 +1,8 @@
 package com.calaton.travelagency.model.domain;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +18,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "tours")
@@ -49,4 +53,9 @@ public class Tour {
     @ManyToMany(mappedBy = "tours")
     List<Client> clients;
 
+    @ElementCollection
+    @CollectionTable(name = "discounts", joinColumns = @JoinColumn(name = "tour_id"))
+    @MapKeyColumn(name = "client_id")
+    @Column(name = "discount")
+    Map<Long, BigDecimal> discounts;
 }
