@@ -11,6 +11,7 @@ import com.calaton.travelagency.model.exception.ResourceNotFoundException;
 import com.calaton.travelagency.repository.ClientRepository;
 import com.calaton.travelagency.repository.TourRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Limit;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -67,6 +68,22 @@ public class ClientService {
                 throw new DateConflictException("You can't book this tour: conflicts by date with another tour");
             }
         }
+    }
+
+    public List<ClientDto> getClientsWithoutOrders(Integer year) {
+        List<Client> clients = clientRepository.findClientsWithoutOrders(year);
+        return clientMapper.toDtoList(clients);
+    }
+
+    public List<ClientDto> getClientsWithTheHighestDiscount() {
+        List<Client> clients = clientRepository.findClientsWithTheHighestDiscount();
+        return clientMapper.toDtoList(clients);
+    }
+
+    public ClientDto getClientWithTheHighestRevenueOverall() {
+        List<Client> clients = clientRepository.findClientsWithTheHighestRevenueOverall(Limit.of(1));
+        if (clients.isEmpty()) throw new ResourceNotFoundException("Client not found");
+        return clientMapper.toDto(clients.get(0));
     }
 
 }
