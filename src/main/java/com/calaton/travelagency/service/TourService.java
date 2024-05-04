@@ -64,9 +64,8 @@ public class TourService {
     }
 
     public CountryCountDto getTheMostPopularDestination(Integer year) {
-        List<CountryCountDto> destinations = tourRepository.findDestinationsOrderedByPopularity(year, Limit.of(1));
-        if (destinations.isEmpty()) throw new ResourceNotFoundException("Tour not found");
-        return destinations.get(0);
+        return tourRepository.findDestinationsOrderedByPopularity(year).orElseThrow(
+                () -> new ResourceNotFoundException("Tour not found"));
     }
 
     public TourDto getTourFromTop3WithTheLowestSellingPrice() {
