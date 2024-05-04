@@ -17,13 +17,13 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
     // Task: "Most popular destination in a given year"
     @Query(value = "select new com.calaton.travelagency.model.dto.projections.CountryCountDto(" +
             "t.destination, count(c)) from Tour t, in(t.clients) c where year(t.departureDate) = :year " +
-            "group by t.destination order by count(c) desc")
-    List<CountryCountDto> findDestinationsOrderedByPopularity(Integer year, Limit limit); // Limit limit
+            "group by t.destination order by count(c) desc limit 1")
+    Optional<CountryCountDto> findDestinationsOrderedByPopularity(Integer year);
 
 
     // Task: "The average price and total amount for which a tour was sold"
     @Query(value = "select new com.calaton.travelagency.model.dto.projections.TourSumAvgDto" +
-            "(t, sum(t.initialPrice - t.initialPrice / 100 * d), avg(t.initialPrice - t.initialPrice / 100 * d))" +
+            "(t, cast(sum(t.initialPrice - t.initialPrice / 100 * d) as bigdecimal), avg(t.initialPrice - t.initialPrice / 100 * d))" +
             " from Tour t, in(t.discounts) d where t.id = :tourId group by t")
     Optional<TourSumAvgDto> findTourAvgPriceAndTotalAmount(Long tourId);
 
@@ -34,5 +34,6 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
 
     @Query(value = "select t from Tour t where t.guide.id = :guideId and t.returnDate >= current_date")
     List<Tour> findGuideActualTours(Long guideId);
+
 
 }
