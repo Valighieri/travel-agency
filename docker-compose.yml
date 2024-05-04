@@ -5,6 +5,10 @@ services:
       context: ./
       dockerfile: "Dockerfile"
     container_name: web-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/travel_agency
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
     ports:
       - "8080:8080"
     depends_on:
@@ -19,5 +23,4 @@ services:
     environment:
       - "POSTGRES_USER=postgres"
       - "POSTGRES_PASSWORD=postgres"
-      - "POSTGRES_DB=test_travel_agency"
-
+      - "POSTGRES_DB=travel_agency"
