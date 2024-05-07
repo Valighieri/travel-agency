@@ -5,13 +5,13 @@ import com.calaton.travelagency.model.domain.Guide;
 import com.calaton.travelagency.model.domain.Tour;
 import com.calaton.travelagency.model.dto.TourDto;
 import com.calaton.travelagency.model.dto.projections.CountryCountDto;
-import com.calaton.travelagency.model.dto.projections.TourSumAvgDto;
 import com.calaton.travelagency.model.dto.projections.TourStatisticDto;
-import com.calaton.travelagency.model.exception.DateConflictException;
+import com.calaton.travelagency.model.dto.projections.TourSumAvgDto;
 import com.calaton.travelagency.model.exception.InvalidDataException;
 import com.calaton.travelagency.model.exception.ResourceNotFoundException;
 import com.calaton.travelagency.repository.GuideRepository;
 import com.calaton.travelagency.repository.TourRepository;
+import com.calaton.travelagency.util.TourAnalyzer;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Limit;
@@ -27,6 +27,8 @@ public class TourService {
 
     private final TourRepository tourRepository;
     private final GuideRepository guideRepository;
+
+    private final TourAnalyzer tourAnalyzer;
 
     private final TourMapper tourMapper;
 
@@ -45,22 +47,13 @@ public class TourService {
         }
         Guide guide = guideRepository.findById(guideId).orElseThrow(
                 () -> new ResourceNotFoundException("Guide not found with id = " + guideId));
-        checkIfTheTourPeriodIsAvailable(guideId, tour);
+
+        List<Tour> guideActualTours = tourRepository.findGuideActualTours(guideId);
+        tourAnalyzer.checkIfTheTourPeriodIsAvailable(guideActualTours, tour);
+
         tour.setGuide(guide);
         tour = tourRepository.save(tour);
         return tourMapper.toDto(tour);
-    }
-
-    // Guides can't guide 2 tours at the same time
-    private void checkIfTheTourPeriodIsAvailable(Long guideId, Tour tour) {
-        List<Tour> guideActualTours = tourRepository.findGuideActualTours(guideId);
-        for (Tour actualTour : guideActualTours) {
-            boolean tourCompletelyBefore = tour.getReturnDate().isBefore(actualTour.getDepartureDate());
-            boolean tourCompletelyAfter = tour.getDepartureDate().isAfter(actualTour.getReturnDate());
-            if (!tourCompletelyBefore && !tourCompletelyAfter) {
-                throw new DateConflictException("Guide has conflict by date with another tour");
-            }
-        }
     }
 
     public CountryCountDto getTheMostPopularDestination(Integer year) {
